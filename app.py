@@ -6,7 +6,7 @@ import numpy as np
 
 # Streamlit page setup
 st.set_page_config(page_title="🦟 Larvae Detection Demo", layout="wide")
-st.title("🦟 Larvae Detection using YOLOv12")
+st.title("🦟 Larvae Species Detection using YOLOv12")
 
 # Loading the model
 @st.cache_resource
@@ -40,4 +40,5 @@ if uploaded_file is not None:
             cls = int(box.cls[0])
             conf = float(box.conf[0])
             st.write(f"**{model.names[cls]}** — Confidence: {conf:.2f}")
+
 
