@@ -3,11 +3,12 @@ from ultralytics import YOLO
 from PIL import Image
 import numpy as np
 
-# --- Streamlit Page Setup ---
+
+# Streamlit page setup
 st.set_page_config(page_title="🦟 Larvae Detection Demo", layout="wide")
 st.title("🦟 Larvae Detection using YOLOv12")
 
-# --- Load YOLOv12 model ---
+# Loading the model
 @st.cache_resource
 def load_model():
     model = YOLO("best.pt")  # make sure best.pt is in the same folder
@@ -15,8 +16,7 @@ def load_model():
 
 model = load_model()
 st.success("Model loaded successfully!")
-
-# --- File Uploader ---
+# File uploader
 uploaded_file = st.file_uploader("Upload an image for detection", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
@@ -31,7 +31,7 @@ if uploaded_file is not None:
 
     st.image(result_img, caption="Detection Result", use_column_width=True)
 
-    # --- Display detection details ---
+    # For detections detail display
     st.subheader("Detection Details")
     if len(results[0].boxes) == 0:
         st.info("No larvae detected.")
@@ -40,3 +40,4 @@ if uploaded_file is not None:
             cls = int(box.cls[0])
             conf = float(box.conf[0])
             st.write(f"**{model.names[cls]}** — Confidence: {conf:.2f}")
+
